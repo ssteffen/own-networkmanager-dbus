@@ -17,6 +17,8 @@ module NetworkManager
   def self.settings
     NetworkManager::DBus::Settings.instance
   end
+
+  require 'network_manager/settings_hash'
   
   # delegate to dbus root object
   def self.method_missing(*args)

@@ -22,11 +22,15 @@ class NetworkManager::DBus::Root
   
   # @return [Array<NetworkManager::DBus::Device>]] devices
   def self.devices
-    instance.call('GetDevices').map do |list|
-      list.map do |object_path|
-        new_device(object_path)
-      end
-    end.flatten
+    instance.call('GetDevices').flatten.map do |object_path|
+      new_device(object_path)
+    end
+  end
+
+  # @return [NetworkManager::DBus::ActiveConnection] con
+  def active_connection
+    @active_connection ||=
+      NetworkManager::DBus::ActiveConnection.new self['ActiveConnections'].first
   end
   
   def self.activate_connection(con, dev, optional = NetworkManager::DBus::NULL_OBJECT)
@@ -37,9 +41,18 @@ class NetworkManager::DBus::Root
     paths = instance.call('GetDeviceByIpIface', interface)
     paths.empty? ? nil : new_device(paths.first)
   end
+
+  def self.deactivate_connection(active_connection)
+    instance.call("DeactivateConnection", active_connection.object_path)
+  end
   
   def self.internet_connection?
     instance.call('state').first == NM_STATE_CONNECTED_GLOBAL
+  end
+
+  def self.get_state
+    instance.call('state')
+    
   end
 
 private

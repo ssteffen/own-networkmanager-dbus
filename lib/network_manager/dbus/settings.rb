@@ -1,7 +1,8 @@
 class NetworkManager::DBus::Settings
   include DBusInterface::Object
-  map_dbus :default_iface => 'org.freedesktop.NetworkManager.Settings',
-             :object_path => '/org/freedesktop/NetworkManager/Settings'
+  map_dbus :default_iface => 'org.freedesktop.NetworkManagerSettings',
+             :object_path => '/org/freedesktop/NetworkManagerSettings'
+  no_properties!
   
   # TODO methods
   # GetConnectionByUuid
@@ -28,6 +29,8 @@ class NetworkManager::DBus::Settings
   # @param [Hash] connection hash
   def add_connection(connection_hash)
     call('AddConnection', connection_hash)
+  rescue DBus::Error => e
+    puts e.inspect
   end
   
   # @param [String] new_hostname

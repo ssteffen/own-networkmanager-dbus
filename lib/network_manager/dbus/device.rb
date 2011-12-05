@@ -41,13 +41,7 @@ class NetworkManager::DBus::Device
   def dhcp4_config
     @dhcp4_config ||= NetworkManager::DBus::Dhcp4Config.new self['Dhcp4Config']
   end
-  
-  # @return [NetworkManager::DBus::ActiveConnection] con
-  def active_connection
-    @active_connection ||=
-      NetworkManager::DBus::ActiveConnection.new self['ActiveConnection']
-  end
-  
+ 
   #
   # ETHERNET
   #
@@ -60,6 +54,18 @@ class NetworkManager::DBus::Device
   def ethernet
     if ethernet?
       @ethernet ||= NetworkManager::DBus::EthernetDevice.new(self.object_path)
+    else
+      nil
+    end
+  end
+
+  def wireless?
+    properties[NM_DEVICE_TYPE__PROPERTY] == NM_DEVICE_TYPE_WIFI
+  end
+
+  def wireless
+    if wireless?
+      @wireless ||= NetworkManager::DBus::WirelessDevice.new(self.object_path)
     else
       nil
     end
