@@ -38,6 +38,23 @@ please have a look at the `examples` folder and the `specs`.
     NetworkManager.devices.first['Interface'] # => 'eth0' or something similar
     NetworkManager.settings.hostname          # => 'your.host.name'
 
+
+Get Wireless Access Points.
+require 'networkmanager-dbus'
+dev = NetworkManager.devices.find{ |device| device["Interface"] == "wlan0"} # => NetworkManager::DBus::Device
+wireless = dev.wirelss                                                      # => NetworkManager::DBus::WirelessDevice
+wireless.access_points                                                      # => [NetworkManager::DBus::AccessPoint
+
+
+Create a new wpa wifi connection
+require 'networkmanager-dbus'
+dev = NetworkManager.devices.find{ |device| device["Interface"] == "wlan0"}                   # => NetworkManager::DBus::Device
+ap = wireless.access_points.first                                                             # => NetworkManager::DBus::AccessPoint
+settings_hash = NetworkManager::SettingsHash.create_wifi_settings("<ssid_name>", "<wpa_psk>") # => {Settings Hash to be passed to connection}
+NetworkManager.settings.add_connection(settings_hash)                                         # => creates connection object In NM 0.9, returns connection. In 0.7, returns nothing
+con = NetworkManager.settings.connections.first                                               # => Returns last created connection, only needed in v <= 0.9
+NetworkManager.activate_connection(con, dev, ap)                                              # => connects to the WAP
+
 ## Development
 
 Development currently happens from my OSX machine where no dbus/networkmanager
