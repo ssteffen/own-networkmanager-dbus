@@ -48,6 +48,7 @@ Get Wireless Access Points.
 
 
 Create a new wpa wifi connection
+
     require 'networkmanager-dbus'
     dev = NetworkManager.devices.find{ |device| device["Interface"] == "wlan0"}                   # => NetworkManager::DBus::Device
     ap = wireless.access_points.first                                                             # => NetworkManager::DBus::AccessPoint
