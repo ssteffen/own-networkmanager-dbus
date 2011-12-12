@@ -48,7 +48,7 @@ class NetworkManager::DBus::Root
   end
   
   def self.activate_connection(con, dev, optional = NetworkManager::DBus::NULL_OBJECT)
-    instance.call('ActivateConnection', 'NetworkManager',  con.object_path, dev.object_path, optional)
+    instance.call('ActivateConnection', 'org.freedesktop.NetworkManagerSystemSettings',  con.object_path, dev.object_path, optional.object_path)
   end
   
   def self.device_by_interface(interface)
