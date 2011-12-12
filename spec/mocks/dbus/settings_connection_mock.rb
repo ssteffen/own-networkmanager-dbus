@@ -13,6 +13,8 @@ module SettingsConnectionMock
       if addresses = ipv4['addresses']
         if addresses.first == 'aau'
           ipv4['addresses'] = addresses.last
+        else
+          raise ArgumentError.new("No signature given in #{addresses.inspect}, expected 'aau'")
         end
       end
     end

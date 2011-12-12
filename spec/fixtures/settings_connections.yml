@@ -8,3 +8,8 @@
     "802-3-ethernet":
       "s390-options": {}
       "mac-address": [8, 0, 39, 251, 59, 16]
+    "ipv4":
+      "addresses": [[1862275500, 24, 16781740]]
+      "dns": []
+      "method": "manual"
+      "routes": []

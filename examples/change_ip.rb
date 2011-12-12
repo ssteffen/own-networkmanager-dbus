@@ -5,7 +5,7 @@ con = NetworkManager::DBus::Settings.connections.first
 
 # new ip4 config
 # ip + netmask + gateway
-ip4 = NetworkManager::Ip4Config.from_dot_notation '192.168.10.100', '255.255.255.0', '192.168.10.1'
+ip4 = NetworkManager::Ip4::Config.from_dot_notation '192.168.10.100', '255.255.255.0', '192.168.10.1'
 
 # change the settings obj
 con.ip4_manual = ip4

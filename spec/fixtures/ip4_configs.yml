@@ -1,7 +1,7 @@
 "/org/freedesktop/NetworkManager/IP4Config/1":
   properties:
     "Addresses": [ [1698212032, 24, 0] ]
-    "Nameservers": []
+    "Nameservers": [16777226]
     "WinsServers": []
-    "Domains": []
+    "Domains": ['ns1.host.tld']
     "Routes": []

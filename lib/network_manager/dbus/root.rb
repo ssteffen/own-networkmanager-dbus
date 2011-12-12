@@ -26,6 +26,14 @@ class NetworkManager::DBus::Root
   NM_OLD_STATE_CONNECTED = 3
   NM_OLD_STATE_DISCONNECTED = 4
 
+  # TODO add missing methods
+  # AddAndActivateConnection
+  # DeactivateConnection
+  # Sleep
+  # Enable
+  # GetPermissions
+  # SetLogging
+  
   # @return [Array<NetworkManager::DBus::Device>]] devices
   def self.devices
     instance.call('GetDevices').flatten.map do |object_path|

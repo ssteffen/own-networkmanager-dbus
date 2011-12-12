@@ -11,4 +11,10 @@ describe "NetworkManager::DBus::EthernetDevice" do
     dev = NetworkManager::DBus::EthernetDevice.new @object_paths.first
     dev.properties.should == @data.first.last['ethernet']['properties']
   end
+  
+  it 'should access #hw_address' do
+    network_manager_dbus_mock
+    dev = NetworkManager::DBus::EthernetDevice.new @object_paths.first
+    dev.hw_address.should == '08:00:27:FB:3B:10'
+  end
 end

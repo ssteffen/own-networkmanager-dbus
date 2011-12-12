@@ -48,6 +48,15 @@ class NetworkManager::DBus::SettingsConnection
     unless new_settings.has_key? 'connection'
       new_settings.merge!(settings)
     end
+    # ensure method signatures
+    # TODO maybe needed also for routes, ...
+    if ipv4_settings = new_settings[IPV4]
+      if addresses = ipv4_settings[IPV4_ADDRESSES]
+        if addresses.first != 'aau'
+          ipv4_settings[IPV4_ADDRESSES] = ['aau', addresses]
+        end
+      end
+    end
     call('Update', new_settings)
   end
   
@@ -55,23 +64,26 @@ class NetworkManager::DBus::SettingsConnection
   def name=(new_id)
     hash = settings
     hash['connection']['id'] = new_id
-    hash.delete 'ipv4'
+    hash.delete IPV4
     update(hash)
   end
   
+  IPV4 = 'ipv4'
+  IPV4_ADDRESSES = 'addresses'
+  IPV4_METHOD = 'method'
   IPV4_METHOD_AUTO = 'auto'
   IPV4_METHOD_MANUAL = 'manual'
   
   # @param [Hash]
   def ip4=(ip4)
     hash = settings
-    hash['ipv4'] = ip4
+    hash[IPV4] = ip4
     update(hash)
   end
   
   # makes ip4 auto (use dhcp)
   def ip4_auto!
-    self.ip4 = {'method' => IPV4_METHOD_AUTO}
+    self.ip4 = {IPV4_METHOD => IPV4_METHOD_AUTO}
   end
   
   # manual ip4 settings (ip etc.)
@@ -81,22 +93,47 @@ class NetworkManager::DBus::SettingsConnection
     addresses = [addresses] unless addresses.is_a? Array
     
     self.ip4 = {
-      'method' => IPV4_METHOD_MANUAL,
-      'addresses' => ['aau', addresses.map{|a| a.to_nm_au}]
+      IPV4_METHOD => IPV4_METHOD_MANUAL,
+      IPV4_ADDRESSES => addresses.map{|a| a.to_nm_au}
     }
   end
   
   # current ipv4
   def ip4
-    if ipv4 = settings['ipv4']
-      if ipv4['method'] == IPV4_METHOD_MANUAL
-        address = ipv4['addresses'].first
-        NetworkManager::Ip4Config.from_nm_au *address
+    if ipv4 = settings[IPV4]
+      if ipv4[IPV4_METHOD] == IPV4_METHOD_MANUAL
+        address = ipv4[IPV4_ADDRESSES].first
+        NetworkManager::Ip4::Config.from_nm_au *address
       else
         IPV4_METHOD_AUTO
       end
     else
       nil
     end
+  end
+  
+  # lock on given device
+  def lock_on_device(device)
+    hash = settings
+    hex_str = begin
+      if device['PermHwAddress']
+        device['PermHwAddress']
+      elsif device.ethernet?
+        hw = device.ethernet.hw_address
+        DBusInterface::Connection.clear! # this is a caching bug!! when calling #ethernet the device itself gets crrupted
+        hw
+      end
+    end
+    if hex_str
+      mac_arr = NetworkManager::Mac.hex_str_to_a hex_str
+      hash[HW_TYPE_ETHERNET]['mac-address'] = mac_arr
+      update(hash)
+    else
+      raise ArgumentError.new("could not found hardware address of #{dev.inspect}")
+    end
+  end
+  
+  def to_s
+    "#{self.class} #{self.settings.inspect}"
   end
 end

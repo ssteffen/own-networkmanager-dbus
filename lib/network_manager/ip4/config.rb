@@ -1,4 +1,4 @@
-class NetworkManager::Ip4Config
+class NetworkManager::Ip4::Config
   attr_accessor :address, :gateway
   
   def self.from_dot_notation(address, subnet = '255.255.255.0', gateway = '0.0.0.0')
@@ -12,22 +12,16 @@ class NetworkManager::Ip4Config
   
   def self.from_nm_au(address_u32, prefix = 0, gateway_u32 = 0)
     obj = self.new
-    obj.address = revert_octects(IPAddress::IPv4.parse_u32(address_u32))
+    obj.address = NetworkManager::Ip4::Calculations.ip4_from_u32(address_u32)
     obj.address.prefix = prefix
-    obj.gateway = revert_octects(IPAddress::IPv4.parse_u32(gateway_u32))
+    obj.gateway = NetworkManager::Ip4::Calculations.ip4_from_u32(gateway_u32)
     obj.gateway.prefix = prefix
     obj
   end
   
   def to_nm_au
-    [revert_octects(address).to_i, address.prefix.to_i, revert_octects(gateway).to_i]
-  end
-  
-  def self.revert_octects(ipv4)
-    IPAddress::IPv4.new(ipv4.octets.reverse.join('.'))
-  end
-  
-  def revert_octects(ipv4)
-    self.class.revert_octects(ipv4)
+    [ NetworkManager::Ip4::Calculations.revert_octects(address).to_i,
+      address.prefix.to_i,
+      NetworkManager::Ip4::Calculations.revert_octects(gateway).to_i ]
   end
 end
