@@ -29,8 +29,6 @@ class NetworkManager::DBus::Settings
   # @param [Hash] connection hash
   def add_connection(connection_hash)
     call('AddConnection', connection_hash)
-  rescue DBus::Error => e
-    puts e.inspect
   end
   
   # @param [String] new_hostname

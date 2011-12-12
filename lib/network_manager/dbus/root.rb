@@ -20,6 +20,12 @@ class NetworkManager::DBus::Root
   # A network device is connected, with global network connectivity.
   NM_STATE_CONNECTED_GLOBAL = 70
   
+  # States for old 0.7 NM
+  NM_OLD_STATE_SLEEP = 1
+  NM_OLD_STATE_CONNECTING = 2
+  NM_OLD_STATE_CONNECTED = 3
+  NM_OLD_STATE_DISCONNECTED = 4
+
   # @return [Array<NetworkManager::DBus::Device>]] devices
   def self.devices
     instance.call('GetDevices').flatten.map do |object_path|
@@ -34,7 +40,7 @@ class NetworkManager::DBus::Root
   end
   
   def self.activate_connection(con, dev, optional = NetworkManager::DBus::NULL_OBJECT)
-    instance.call('ActivateConnection', con.object_path, dev.object_path, optional)
+    instance.call('ActivateConnection', 'NetworkManager',  con.object_path, dev.object_path, optional)
   end
   
   def self.device_by_interface(interface)
@@ -47,7 +53,8 @@ class NetworkManager::DBus::Root
   end
   
   def self.internet_connection?
-    instance.call('state').first == NM_STATE_CONNECTED_GLOBAL
+    state = instance.call('state').first 
+    state == NM_STATE_CONNECTED_GLOBAL || state == NM_OLD_STATE_CONNECTED
   end
 
   def self.get_state
