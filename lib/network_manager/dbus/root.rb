@@ -46,6 +46,10 @@ class NetworkManager::DBus::Root
     @active_connection ||=
       NetworkManager::DBus::ActiveConnection.new self['ActiveConnections'].first
   end
+
+ def self.active_connection
+    instance.active_connection
+ end
   
   def self.activate_connection(con, dev, optional = NetworkManager::DBus::NULL_OBJECT)
     instance.call('ActivateConnection', 'org.freedesktop.NetworkManagerSystemSettings',  con.object_path, dev.object_path, optional.object_path)

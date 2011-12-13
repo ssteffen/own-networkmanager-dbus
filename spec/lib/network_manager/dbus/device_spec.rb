@@ -49,10 +49,11 @@ describe "NetworkManager::DBus::Device" do
     device = NetworkManager::DBus::Device.new @object_paths.first
     device.ip4_config.class.should == NetworkManager::DBus::Ip4Config
   end
-  
-  it 'should provide active_connection' do
-    network_manager_dbus_mock
-    device = NetworkManager::DBus::Device.new @object_paths.first
-    device.active_connection.class.should == NetworkManager::DBus::ActiveConnection
-  end
+
+# NetworkManager 0.7 doesnt support this test case. Created similar test in root  
+#  it 'should provide active_connection' do
+#    network_manager_dbus_mock
+#    device = NetworkManager::DBus::Device.new @object_paths.first
+#    device.active_connection.class.should == NetworkManager::DBus::ActiveConnection
+#  end
 end

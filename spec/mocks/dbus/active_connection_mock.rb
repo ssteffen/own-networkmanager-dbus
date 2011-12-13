@@ -1,0 +1,3 @@
+module ActiveConnectionMock
+
+end

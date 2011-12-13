@@ -35,4 +35,13 @@ describe "NetworkManager::DBus::Root" do
       NetworkManager::DBus::Root.internet_connection?.should be_false
     end
   end
+
+  describe 'active_connection' do
+    it 'should provide active_connection' do
+      network_manager_dbus_mock
+      stub(NetworkManager::DBus::Root.instance)
+      NetworkManager::DBus::Root.active_connection.class.should == NetworkManager::DBus::ActiveConnection
+    end
+  end
+
 end

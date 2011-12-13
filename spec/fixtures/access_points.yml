@@ -1,0 +1,11 @@
+'/org/freedesktop/NetworkManager/AccessPoint/0':
+  properties:
+    "Flags": 0
+    "WpaFlags": 0
+    "RsnFlags": 0
+    "Ssid": [70, 111, 111]
+    "Frequency": 0
+    "HwAddress": 0
+    "Mode": 2
+    "MaxBitrate": 65000
+    "Strength": 79

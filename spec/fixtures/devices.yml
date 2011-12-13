@@ -39,3 +39,29 @@
      "Managed": yes
      "FirmwareMissing": no
      "DeviceType": 1
+
+"/org/freedesktop/NetworkManager/Device/2":
+  properties:
+     "Udi": "/sys/devices/pci0000:00/0000:00:03.0/net/wlan0"
+     "Interface": "wlan0"
+     "IpInterface": "wlan0"
+     "Driver": "ath9k"
+     "Capabilities": 1
+     "Ip4Address": 0
+     "State": 8
+     "ActiveConnection": "/"
+     "Ip4Config": "/"
+     "Dhcp4Config": "/"
+     "Ip6Config": "/"
+     "Dhcp6Config": "/"
+     "Managed": yes
+     "FirmwareMissing": no
+     "DeviceType": 2
+  wireless:
+    properties:
+      "HwAddress": "08:00:27:FB:3B:10"
+      "PermHwAddress": "08:00:27:FB:3B:10"
+      "Mode": 2
+      "Bitrate": 65000
+      "ActiveAccessPoint": "/org/freedesktop/NetworkManager/AccessPoint/0"
+      "WirelessCapabilities": 63

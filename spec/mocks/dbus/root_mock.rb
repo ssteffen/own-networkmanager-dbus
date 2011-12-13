@@ -11,4 +11,5 @@ module RootMock
     end
     [ object_path ]
   end
+
 end

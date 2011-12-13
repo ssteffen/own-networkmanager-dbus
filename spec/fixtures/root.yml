@@ -1,0 +1,3 @@
+"/org/freedesktop/NetworkManager":
+  properties:
+    "ActiveConnections": ["/org/freedesktop/NetworkManager/ActiveDesktop/0"]
