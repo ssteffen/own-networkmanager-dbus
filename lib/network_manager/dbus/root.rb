@@ -69,9 +69,16 @@ class NetworkManager::DBus::Root
     state == NM_STATE_CONNECTED_GLOBAL || state == NM_OLD_STATE_CONNECTED
   end
 
-  def self.get_state
+  def self.state
     instance.call('state')
-    
+  end
+
+  def self.version
+    begin 
+      instance.call('Version')
+    rescue NoMethodError
+      return "Network Manager 0.7"
+    end
   end
 
 private
