@@ -5,4 +5,13 @@ class NetworkManager::DBus::ActiveConnection
   def connection
     @connection ||= NetworkManager::DBus::SettingsConnection.new self['Connection']
   end
+
+  def access_point
+    if self['SpecificObject'].blank?
+      nil
+    else
+      NetworkManager::DBus::AccessPoint.new(self['SpecificObject'])
+    end
+  end
+
 end
