@@ -74,11 +74,12 @@ class NetworkManager::DBus::Root
   end
 
   def self.version
-    begin 
-      instance.call('Version')
-    rescue NoMethodError
-      return "Network Manager 0.7"
+    version = instance['Version']
+    if version.nil?
+      return "0.7"
     end
+    return version
+    
   end
 
 private
