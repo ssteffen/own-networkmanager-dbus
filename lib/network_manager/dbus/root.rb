@@ -35,10 +35,14 @@ class NetworkManager::DBus::Root
   # SetLogging
   
   # @return [Array<NetworkManager::DBus::Device>]] devices
-  def self.devices
-    instance.call('GetDevices').flatten.map do |object_path|
+  def devices
+    self.call('GetDevices').flatten.map do |object_path|
       new_device(object_path)
     end
+  end
+
+  def self.devices
+    instance.devices
   end
 
   # @return [NetworkManager::DBus::ActiveConnection] con
@@ -69,17 +73,24 @@ class NetworkManager::DBus::Root
     state == NM_STATE_CONNECTED_GLOBAL || state == NM_OLD_STATE_CONNECTED
   end
 
-  def self.state
-    instance.call('state')
+  def state
+    self.call('state')
   end
 
-  def self.version
-    version = instance['Version']
+  def self.state
+    NetworkManager.new.state
+  end
+
+  def version
+    version = self['Version']
     if version.nil?
       return "0.7"
     end
     return version
-    
+  end
+
+  def self.version
+    NetworkManager.new.version
   end
 
 private

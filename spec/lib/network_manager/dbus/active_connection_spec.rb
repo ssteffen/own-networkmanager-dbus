@@ -16,4 +16,11 @@ describe "NetworkManager::DBus::ActiveConnection" do
     con = NetworkManager::DBus::ActiveConnection.new @object_paths.first
     con.properties.should == @data.first.last['properties']
   end
+
+  it "should list devices" do
+    network_manager_dbus_mock
+    con = NetworkManager::DBus::ActiveConnection.new @object_paths.first
+    con.devices.size.should_not eql(0)
+    con.devices.first.class.should eql(NetworkManager::DBus::Device)
+  end
 end

@@ -14,4 +14,9 @@ class NetworkManager::DBus::ActiveConnection
     end
   end
 
+  def devices
+    if self["Devices"].empty? then nil end
+    self["Devices"].map{|device_path| NetworkManager::DBus::Device.new(device_path)}
+  end
+
 end
