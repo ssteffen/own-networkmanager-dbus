@@ -47,7 +47,7 @@ class NetworkManager::DBus::Root
 
   # @return [NetworkManager::DBus::ActiveConnection] con
   def active_connection
-    @active_connection ||=
+    @active_connection =
       NetworkManager::DBus::ActiveConnection.new self['ActiveConnections'].first
   end
 
@@ -96,6 +96,10 @@ class NetworkManager::DBus::Root
 private
 
   def self.new_device(object_path)
+    NetworkManager::DBus::Device.new object_path
+  end
+
+  def new_device(object_path)
     NetworkManager::DBus::Device.new object_path
   end
 
