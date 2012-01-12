@@ -54,7 +54,7 @@ class NetworkManager::DBus::Device
   def ethernet
     if ethernet?
       @ethernet = NetworkManager::DBus::EthernetDevice.new(self.object_path)
-      #DBusInterface::Connection.clear! #hack to re-establish a connection because ethernet corrupts the device object
+      DBusInterface::Connection.clear! #hack to re-establish a connection because ethernet corrupts the device object
       return @ethernet
     else
       nil
@@ -68,7 +68,7 @@ class NetworkManager::DBus::Device
   def wireless
     if wireless?
       @wireless = NetworkManager::DBus::WirelessDevice.new(self.object_path)
-      #DBusInterface::Connection.clear! #hack to re-establish a connection because wireless corrupts the device object
+      DBusInterface::Connection.clear! #hack to re-establish a connection because wireless corrupts the device object
       return @wireless
     else
       nil
