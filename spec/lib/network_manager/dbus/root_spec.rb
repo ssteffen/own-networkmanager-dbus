@@ -36,11 +36,12 @@ describe "NetworkManager::DBus::Root" do
     end
   end
 
-  describe 'active_connection' do
-    it 'should provide active_connection' do
+  describe 'active_connections' do
+    it 'should provide active_connections' do
       network_manager_dbus_mock
       stub(NetworkManager::DBus::Root.instance)
-      NetworkManager::DBus::Root.active_connection.class.should == NetworkManager::DBus::ActiveConnection
+      NetworkManager::DBus::Root.active_connections.class.should == Array
+      NetworkManager::DBus::Root.active_connections.first.class.should == NetworkManager::DBus::ActiveConnection
     end
   end
 

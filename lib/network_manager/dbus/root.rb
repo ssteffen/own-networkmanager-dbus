@@ -46,13 +46,14 @@ class NetworkManager::DBus::Root
   end
 
   # @return [NetworkManager::DBus::ActiveConnection] con
-  def active_connection
-    @active_connection =
-      NetworkManager::DBus::ActiveConnection.new self['ActiveConnections'].first
+  def active_connections
+    self['ActiveConnections'].flatten.map do |object_path|
+      NetworkManager::DBus::ActiveConnection.new object_path
+    end
   end
 
- def self.active_connection
-    instance.active_connection
+ def self.active_connections
+    instance.active_connections
  end
   
   def self.activate_connection(con, dev, optional = NetworkManager::DBus::NULL_OBJECT)
