@@ -1,4 +1,4 @@
-"/org/freedesktop/NetworkManagerSettings/Connection/0":
+"/org/freedesktop/NetworkManager/Settings/Connection/0":
   settings:
     "connection":
       "id": "Wired connection 1"

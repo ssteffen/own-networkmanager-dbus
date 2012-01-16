@@ -11,7 +11,7 @@ class DBusMock
         extend RootMock
       when /NetworkManager.Connection.Active$/
         extend ActiveConnectionMock
-      when /NetworkManagerSettings$/
+      when /NetworkManager.Settings$/
         extend SettingsMock
       when /NetworkManager.Device.Wired$/
         extend EthernetDeviceMock
@@ -19,7 +19,7 @@ class DBusMock
         extend WirelessDeviceMock
       when /NetworkManager.AccessPoint$/
         extend AccessPointMock
-      when /NetworkManagerSettings.Connection$/
+      when /NetworkManager.Settings.Connection$/
         extend SettingsConnectionMock
     end
     iface

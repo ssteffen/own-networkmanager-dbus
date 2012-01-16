@@ -45,4 +45,13 @@ describe "NetworkManager::DBus::Root" do
     end
   end
 
+
+  describe :add_and_activate_connection do
+    before(:each) do
+      network_manager_dbus_mock
+      stub(NetworkManager::DBus::Root.instance)
+
+    end
+  end
+
 end

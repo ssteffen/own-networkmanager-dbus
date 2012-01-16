@@ -74,6 +74,14 @@ class NetworkManager::DBus::Root
     state == NM_STATE_CONNECTED_GLOBAL || state == NM_OLD_STATE_CONNECTED
   end
 
+  def self.add_and_activate_connection(connection_hash, device, specific_object)
+    instance.add_and_activate_connection(connection_hash, device, specific_object)
+  end
+
+  def add_and_activate_connection(connection_hash, device, specific_object)
+    self.call('AddAndActivateConnection', connection_hash, device, specific_object)
+  end
+
   def state
     self.call('state')
   end

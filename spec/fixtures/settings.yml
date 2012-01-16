@@ -1,4 +1,4 @@
-"/org/freedesktop/NetworkManagerSettings":
+"/org/freedesktop/NetworkManager/Settings":
   properties:
     Hostname: 'dev-vm'
     CanModify: yes

@@ -1,7 +1,7 @@
 class NetworkManager::DBus::Settings
   include DBusInterface::Object
-  map_dbus :default_iface => 'org.freedesktop.NetworkManagerSettings',
-             :object_path => '/org/freedesktop/NetworkManagerSettings'
+  map_dbus :default_iface => 'org.freedesktop.NetworkManager.Settings',
+             :object_path => '/org/freedesktop/NetworkManager/Settings'
   no_properties!
   
   # TODO methods
