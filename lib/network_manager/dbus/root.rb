@@ -79,7 +79,7 @@ class NetworkManager::DBus::Root
   end
 
   def add_and_activate_connection(connection_hash, device, specific_object)
-    self.call('AddAndActivateConnection', connection_hash, device, specific_object)
+    self.call('AddAndActivateConnection', connection_hash, device.object_path, specific_object.object_path)
   end
 
   def state
