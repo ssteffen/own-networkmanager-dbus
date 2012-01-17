@@ -16,10 +16,10 @@ class NetworkManager::SettingsHash < Hash
     ssid = (ssid.kind_of?(String))? ssid.bytes.to_a : ssid
     wifi_settings = {
       'ssid' => [DBus::Type::Parser.new('ay').parse[0], ssid],
-      'security' => security,
       'name' => '802-11-wireless'
     }
     if security
+      wifi_settings["security"] = security
       security_settings = {
         'key-mgmt' => 'wpa-psk',
         'psk' => pass,
