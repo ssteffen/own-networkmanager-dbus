@@ -1,6 +1,7 @@
 describe NetworkManager::SettingsHash do
   subject{NetworkManager::SettingsHash}
 
+  it{should respond_to(:create_wifi_settings).with(1)}
   it{should respond_to(:create_wifi_settings).with(2)}
   it{should respond_to(:create_ethernet_settings).with(0)}
 
