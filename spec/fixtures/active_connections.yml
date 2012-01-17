@@ -1,9 +1,21 @@
 "/org/freedesktop/NetworkManager/ActiveConnection/0":
   properties:
-    "Connection": "/org/freedesktop/NetworkManagerSettings/0"
+    "Connection": "/org/freedesktop/NetworkManager/Settings/0"
     "SpecificObject": "/"
     "Uuid": "f6ea104f-48aa-4925-b4c7-4e7ae561099c"
     "Devices": ["/org/freedesktop/NetworkManager/Devices/0"]
+    "State": 2
+    "Default": no
+    "Default6": no
+    "Vpn": no
+
+
+"/org/freedesktop/NetworkManager/ActiveConnection/1":
+  properties:
+    "Connection": "/org/freedesktop/NetworkManager/Settings/8"
+    "SpecificObject": "/org/freedesktop/NetworkManager/AccessPoint/1"
+    "Uuid": "d6ea104f-48aa-4925-b4c7-4e7ae561099c"
+    "Devices": ["/org/freedesktop/NetworkManager/Devices/2"]
     "State": 2
     "Default": no
     "Default6": no

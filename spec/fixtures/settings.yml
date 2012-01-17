@@ -2,3 +2,10 @@
   properties:
     Hostname: 'dev-vm'
     CanModify: yes
+
+"/org/freedesktop/NetworkManager/Settings/8":
+  properties:
+    Hostname: "dev-vm"
+    CanModify: yes
+
+

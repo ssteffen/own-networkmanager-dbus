@@ -78,8 +78,10 @@ class NetworkManager::DBus::Root
     instance.add_and_activate_connection(connection_hash, device, specific_object)
   end
 
-  def add_and_activate_connection(connection_hash, device, specific_object)
-    self.call('AddAndActivateConnection', connection_hash, device.object_path, specific_object.object_path)
+  def add_and_activate_connection(connection_hash, device, specific_object=nil)
+    #For private networks we don't need a specific object. In this case just pass nil
+    obj = (specific_object.nil?)? '/' : specific_object.object_path
+    self.call('AddAndActivateConnection', connection_hash, device.object_path, obj)
   end
 
   def state

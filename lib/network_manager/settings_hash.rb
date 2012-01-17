@@ -4,7 +4,7 @@ class NetworkManager::SettingsHash < Hash
   def self.create_wifi_settings(ssid, pass)
     connection_settings = {
       'id' => ssid,
-      'uuid' => SecureRandom.uuid,
+      'uuid' => ActiveSupport::SecureRandom.uuid,
       'type' => '802-11-wireless',
       'name' => 'connection'
     }

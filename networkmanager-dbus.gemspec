@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "pry"
   s.add_development_dependency "rspec"
   s.add_development_dependency "rr"
+  s.add_development_dependency "active_support"
   s.add_development_dependency "guard"
   s.add_development_dependency "guard-shell"
   s.add_development_dependency "growl-rspec"

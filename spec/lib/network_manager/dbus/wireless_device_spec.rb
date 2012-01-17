@@ -8,7 +8,6 @@ describe "NetworkManager::DBus::WirelessDevice" do
     
   it "should list poperties" do
     network_manager_dbus_mock
-    debugger
     dev = NetworkManager::DBus::WirelessDevice.new @object_paths.last
     dev.properties.should == @data.to_a.last.last['wireless']['properties']
   end
