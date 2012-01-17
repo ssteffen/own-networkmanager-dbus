@@ -8,4 +8,12 @@ class NetworkManager::DBus::AccessPoint
     return self['Strength']
   end
 
+  def hw_address
+    return self['HwAddress']
+  end
+
+  def ssid
+    return self['Ssid']
+  end
+
 end

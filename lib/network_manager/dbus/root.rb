@@ -68,9 +68,9 @@ class NetworkManager::DBus::Root
   def self.deactivate_connection(active_connection)
     instance.call("DeactivateConnection", active_connection.object_path)
   end
-  
+ 
   def self.internet_connection?
-    state = instance.call('state').first 
+    state = instance.call('state').first
     state == NM_STATE_CONNECTED_GLOBAL || state == NM_OLD_STATE_CONNECTED
   end
 
