@@ -27,7 +27,7 @@ class NetworkManager::SettingsHash < Hash
       }
     end
     ipv4_settings = {
-      'method' => 'link-local',
+      'method' => 'auto',
       'name' =>  'ipv4'
     }
 
