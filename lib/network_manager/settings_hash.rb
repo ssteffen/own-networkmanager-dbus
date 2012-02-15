@@ -1,7 +1,7 @@
 class NetworkManager::SettingsHash < Hash
 
   # Generates a connection settings hash for a wifi connection.
-  def self.create_wifi_settings(ssid, pass = nil)
+  def self.create_wifi_settings(ssid, pass = nil, wpa_flags = 0)
     connection_settings = {
       'id' => ssid,
       'uuid' => ActiveSupport::SecureRandom.uuid,
@@ -21,10 +21,19 @@ class NetworkManager::SettingsHash < Hash
     if security
       wifi_settings["security"] = security
       security_settings = {
-        'key-mgmt' => 'wpa-psk',
-        'psk' => pass,
         'name' => '802-11-wireless-security'
       }
+      if(wpa_flags != 0)
+        security_settings.merge!({
+          'key-mgmt' => 'wpa-psk',
+          'psk' => pass
+        })
+      else
+        security_settings.merge!({
+          'key-mgmt' => 'none',
+          'wep-key0' => pass
+        })
+      end
     end
     ipv4_settings = {
       'method' => 'auto',

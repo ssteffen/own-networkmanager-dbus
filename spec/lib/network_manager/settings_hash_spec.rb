@@ -8,7 +8,7 @@ describe NetworkManager::SettingsHash do
   describe :create_wifi_settings do
     context "should give settings for Test AP with password pass with string ssid" do
       before(:each) do
-        @hash = NetworkManager::SettingsHash.create_wifi_settings("Test", "pass")
+        @hash = NetworkManager::SettingsHash.create_wifi_settings("Test", "pass", 325)
       end
       specify {@hash.should be_a Hash}
       specify {@hash['connection']['type'].should eql '802-11-wireless'}
@@ -18,7 +18,7 @@ describe NetworkManager::SettingsHash do
 
     context "should give settings for Test AP with password pass with byte array ssid" do
       before(:each) do
-        @hash = NetworkManager::SettingsHash.create_wifi_settings("Test", "pass")
+        @hash = NetworkManager::SettingsHash.create_wifi_settings("Test", "pass", 1)
       end
       specify {@hash.should be_a Hash}
       specify {@hash['connection']['type'].should eql '802-11-wireless'}
@@ -33,6 +33,17 @@ describe NetworkManager::SettingsHash do
       specify {@hash.should be_a Hash}
       specify {@hash['connection']['type'].should eql '802-11-wireless'}
       specify {@hash['802-11-wireless-security'].should eql nil}
+    end
+
+    context "should give settings for Test AP a WEP connection with password" do
+      before(:each) do
+        @hash = NetworkManager::SettingsHash.create_wifi_settings("Test", "pass", 0)
+      end
+      specify{@hash.should be_a Hash}
+      specify {@hash['connection']['type'].should eql '802-11-wireless'}
+      specify {@hash['802-11-wireless']['ssid'][1].should eql([84, 101, 115, 116])}
+      specify {@hash['802-11-wireless-security']['key-mgmt'].should eql 'none'}
+      specify {@hash['802-11-wireless-security']['wep-key0'].should eql("pass")}
     end
   end
 
