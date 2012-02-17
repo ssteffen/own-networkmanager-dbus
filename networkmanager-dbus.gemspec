@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "network_manager/version"
 
 Gem::Specification.new do |s|
-  s.name        = "networkmanager-dbus"
+  s.name        = "own-networkmanager-dbus"
   s.version     = NetworkManager::VERSION
   s.authors     = ["Jens Bissinger"]
   s.email       = ["whiterabbit.init@gmail.com"]
