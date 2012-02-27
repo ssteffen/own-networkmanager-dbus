@@ -19,4 +19,8 @@ class NetworkManager::DBus::ActiveConnection
     self["Devices"].map{|device_path| NetworkManager::DBus::Device.new(device_path)}
   end
 
+  def delete
+   self.call("Delete")
+  end
+
 end
