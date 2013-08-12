@@ -42,15 +42,16 @@ please have a look at the `examples` folder and the `specs`.
 Get Wireless Access Points.
 
     require 'networkmanager-dbus'
-    dev = NetworkManager.devices.find{ |device| device["Interface"] == "wlan0"} # => NetworkManager::DBus::Device
-    wireless = dev.wirelss                                                      # => NetworkManager::DBus::WirelessDevice
-    wireless.access_points                                                      # => [NetworkManager::DBus::AccessPoint
+    dev = NetworkManager.devices.find{ |device| device["Interface"] == "wlan0"}  # => NetworkManager::DBus::Device
+    wireless = dev.wireless                                                      # => NetworkManager::DBus::WirelessDevice
+    wireless.access_points                                                       # => [NetworkManager::DBus::AccessPoint
 
 
 Create a new wpa wifi connection
 
     require 'networkmanager-dbus'
     dev = NetworkManager.devices.find{ |device| device["Interface"] == "wlan0"}                   # => NetworkManager::DBus::Device
+    wireless = dev.wireless                                                                       # => NetworkManager::DBus::WirelessDevice
     ap = wireless.access_points.first                                                             # => NetworkManager::DBus::AccessPoint
     settings_hash = NetworkManager::SettingsHash.create_wifi_settings("<ssid_name>", "<wpa_psk>") # => {Settings Hash to be passed to connection}
     NetworkManager.settings.add_connection(settings_hash)                                         # => creates connection object In NM 0.9, returns connection. In 0.7, returns nothing
